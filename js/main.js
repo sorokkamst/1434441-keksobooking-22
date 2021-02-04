@@ -1,3 +1,4 @@
+"use strict";
 // Задание 1
 // Ссылка на источник https://developer.mozilla.org/
 
