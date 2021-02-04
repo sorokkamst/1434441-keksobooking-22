@@ -2,17 +2,18 @@
 // Задание 1
 // Ссылка на источник https://developer.mozilla.org/
 
+const validationCheck = (min, max) => {
+  if (min < 0 || max <= min) {
+    console.log('Только неотрицательные значения\nА также парамерт max не может быть меньше или равен параметру min');
+    return false;
+  }
+}
+
 const getRandomInt = function (min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
 
-  if (min < 0) {
-    alert('Только неотрицательные значения');
-    return false;
-  }
-
-  if (max <= min) {
-    alert('Парамерт max не может быть меньше или равен параметру min');
+  if (validationCheck(min, max) === false) {
     return false;
   }
 
@@ -23,15 +24,9 @@ const getRandomInt = function (min, max) {
 
 const getRandomFloatingPointNumber = function (min, max, floatingPoint) {
 
-  if (min < 0) {
-    alert('Только неотрицательные значения');
+  if (validationCheck(min, max) === false) {
     return false;
   }
 
-  if (max <= min) {
-    alert('Парамерт max не может быть меньше или равен параметру min');
-    return false;
-  }
-
-  return ((Math.random() * (max - min) + min).toFixed(floatingPoint));
+  return ((Math.random() * (max - min) + min).toFixed(floatingPoint)/1);
 }
