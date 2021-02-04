@@ -2,7 +2,7 @@
 // Задание 1
 // Ссылка на источник https://developer.mozilla.org/
 
-function getRandomInt(min, max) {
+const getRandomInt = function (min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
 
@@ -21,7 +21,7 @@ function getRandomInt(min, max) {
 
 // Задание 2
 
-function getRandomFloatingPointNumber(min, max, floatingPoint) {
+const getRandomFloatingPointNumber = function (min, max, floatingPoint) {
 
   if (min < 0) {
     alert('Только неотрицательные значения');
