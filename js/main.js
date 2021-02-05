@@ -3,8 +3,8 @@
 // Вспомогательные функции и переменные
 const VALIDATION_CHECK_ERR_MSG = 'Только неотрицательные значения\nА также парамерт max не может быть меньше или равен параметру min';
 
-const IsValid = (min, max) => {
-  return (min < 0 || max <= min) ? false : true;
+const isValid = (min, max) => {
+  return !(min < 0 || max <= min);
 }
 
 // Задание 1
@@ -14,7 +14,7 @@ const getRandomInt = function (min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
 
-  if (!IsValid(min, max)) {
+  if (!isValid(min, max)) {
     return VALIDATION_CHECK_ERR_MSG;
   }
 
@@ -27,7 +27,7 @@ getRandomInt(1,2);
 
 const getRandomFloatingPointNumber = function (min, max, floatingPoint) {
 
-  if (!IsValid(min, max)) {
+  if (!isValid(min, max)) {
     return VALIDATION_CHECK_ERR_MSG;
   }
 
