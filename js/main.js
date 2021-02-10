@@ -42,11 +42,15 @@ const ACCOMODATION_TYPE = ['palace', 'flat', 'house', 'bungalow'];
 const ARRIVAL_TIME = ['12:00', '13:00', '14:00'];
 const DEPARTURE_TIME = ['12:00', '13:00', '14:00'];
 const ACCOMMODATION_FACILITIES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const PHOTOS = ["http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg", "http://o0.github.io/assets/images/tokyo/hotel3.jpg"];
+const PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 const ACCOMODATION_VARIANTS = 10;
 // Secondary variables
 
 // let result = [];
+//
+// function checkAvailability(arr, val) {
+//   return arr.some(arrVal => val === arrVal);
+// }
 //
 // const RANDOM_MASSIV = (ACCOMMODATION_FACILITIES, ACCOMMODATION_FACILITIES[getRandomInt(0, ACCOMMODATION_FACILITIES.length)]) = > {
 //   for (let i = 0; i < arr.length; i++ ) {
@@ -58,7 +62,7 @@ const ACCOMODATION_VARIANTS = 10;
 
 const author = () => {
   return {
-    avatar: 'img/avatars/user' + [0, getRandomInt(1,8)].join('') + '.png'
+    avatar: 'img/avatars/user' + [0, getRandomInt(1,8)].join('') + '.png',
   };
 };
 
@@ -73,7 +77,7 @@ const offer = () => {
     checkin: ARRIVAL_TIME[getRandomInt(0, ARRIVAL_TIME.length - 1)],
     checkout: DEPARTURE_TIME[getRandomInt(0, DEPARTURE_TIME.length - 1)],
     // features:
-    description: 'Чисто, убрано, с крутым балконом'
+    description: 'Чисто, убрано, с крутым балконом',
     // photos:
   };
 };
@@ -81,14 +85,9 @@ const offer = () => {
 const location = () => {
   return {
     x: getRandomFloatingPointNumber(35.65000, 35.70000, 5),
-    y: getRandomFloatingPointNumber(139.70000, 139.80000, 5)
+    y: getRandomFloatingPointNumber(139.70000, 139.80000, 5),
   };
 };
-
-function checkAvailability(arr, val) {
-  return arr.some(arrVal => val === arrVal);
-}
-
 
 const randomLocation = () => Object.assign({}, author(), offer(), location());
 
