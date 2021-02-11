@@ -65,11 +65,15 @@ const getRandomArray = (arr) => {
   return slicedArray;
 };
 
+const getRandomFloatingPoints = (x, y, floatingPoint) => {
+  return getRandomFloatingPointNumber(x, y, floatingPoint);
+}
+
 // Result function
 const generateOffer = () => {
 
-  const locationX = getRandomFloatingPointNumber(35.65000, 35.70000, 5);
-  const locationY = getRandomFloatingPointNumber(139.70000, 139.80000, 5);
+  const locationX = getRandomFloatingPoints(35.65000, 35.70000, 5);
+  const locationY = getRandomFloatingPoints(139.70000, 139.80000, 5);
 
   return {
     'author': {
@@ -96,3 +100,4 @@ const generateOffer = () => {
 };
 
 const getRandomLocations = new Array(ACCOMODATION_VARIANTS).fill(null).map(() => generateOffer());
+console.log(getRandomLocations);
