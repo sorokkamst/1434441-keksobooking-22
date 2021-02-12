@@ -52,7 +52,11 @@ function shuffle(array) {
 }
 
 const getRandomAvatarNumber = (minNumber,maxNumber) => {
-  return ['0'+ getRandomInt(minNumber, maxNumber)].join();
+  const getRandomAvatarNumberCheck = getRandomInt(minNumber, maxNumber);
+  if (getRandomAvatarNumberCheck < 10) {
+    return ['0'+ getRandomAvatarNumberCheck].join();
+  }
+  return getRandomAvatarNumberCheck;
 };
 
 const getRandomArrayIndex = (arr) => {
@@ -65,19 +69,15 @@ const getRandomArray = (arr) => {
   return slicedArray;
 };
 
-const getRandomFloatingPoints = (x, y, floatingPoint) => {
-  return getRandomFloatingPointNumber(x, y, floatingPoint);
-}
-
 // Result function
 const generateOffer = () => {
 
-  const locationX = getRandomFloatingPoints(35.65000, 35.70000, 5);
-  const locationY = getRandomFloatingPoints(139.70000, 139.80000, 5);
+  const locationX = getRandomFloatingPointNumber(35.65000, 35.70000, 5);
+  const locationY = getRandomFloatingPointNumber(139.70000, 139.80000, 5);
 
   return {
     'author': {
-      avatar: 'img/avatars/user' + getRandomAvatarNumber(1,8) + '.png',
+      avatar: 'img/avatars/user' + getRandomAvatarNumber(1,20) + '.png',
     },
     'offer': {
       title: getRandomArrayIndex(TITLE),
@@ -99,5 +99,5 @@ const generateOffer = () => {
   };
 };
 
-const getRandomLocations = new Array(ACCOMODATION_VARIANTS).fill(null).map(() => generateOffer());
+const getRandomLocations = new Array(ACCOMODATION_VARIANTS).fill(null).map(generateOffer);
 console.log(getRandomLocations);
