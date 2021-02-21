@@ -1,4 +1,4 @@
-import {getRandomInt, getRandomFloatingPointNumber} from './util.js';
+import {getRandomInt, getRandomFloatingPointNumber, getRandomArrayIndex, getRandomArray} from './util.js';
 
 const TITLE = ['Информация о поездке', 'Описание предложения', 'Информация о месте проживания'];
 const ACCOMODATION_TYPE = ['palace', 'flat', 'house', 'bungalow'];
@@ -8,26 +8,12 @@ const PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0
 const DESCRIPTION = ['Чисто, убрано, с крутым балконом', 'Большие номера с видом на море', 'Френдли к животным', 'Панорамные окна для фоточек']
 const ACCOMODATION_VARIANTS = 10;
 
-function shuffle(array) {
-  array.sort(() => Math.random() - 0.5)
-}
-
 const getRandomAvatarNumber = (minNumber,maxNumber) => {
   const getRandomAvatarNumberCheck = getRandomInt(minNumber, maxNumber);
   if (getRandomAvatarNumberCheck < 10) {
     return ['0'+ getRandomAvatarNumberCheck].join();
   }
   return getRandomAvatarNumberCheck;
-};
-
-const getRandomArrayIndex = (arr) => {
-  return arr[getRandomInt(0, arr.length - 1)]
-};
-
-const getRandomArray = (arr) => {
-  shuffle(arr);
-  const slicedArray = arr.slice(0, getRandomInt(1, arr.length - 1));
-  return slicedArray;
 };
 
 const generateOffer = () => {
@@ -60,4 +46,7 @@ const generateOffer = () => {
 };
 
 const getRandomLocations = new Array(ACCOMODATION_VARIANTS).fill(null).map(generateOffer);
+// eslint-disable-next-line no-console
 console.log(getRandomLocations);
+
+export {getRandomLocations};
