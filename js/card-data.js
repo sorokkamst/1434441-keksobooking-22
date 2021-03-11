@@ -14,7 +14,7 @@ const template = document.querySelector('#card')
   .querySelector('.popup');
 
 const locationsList = getRandomLocations;
-const getRandomLocationsListFragment = document.createDocumentFragment();
+const randomLocationsListFragment = document.createDocumentFragment();
 
 for (let i = 0; i < getRandomLocations.length; i++) {
   let templateClone = template.cloneNode(true);
@@ -27,11 +27,11 @@ for (let i = 0; i < getRandomLocations.length; i++) {
   templateClone.querySelector('.popup__text--time').textContent = 'Заезд после ' + locationsList[i].offer.checkin + ', выезд до ' + locationsList[i].offer.checkout;
   templateClone.querySelector('.popup__features').textContent = locationsList[i].offer.features.join(', ');
   templateClone.querySelector('.popup__description').textContent = locationsList[i].offer.description;
-  console.log(templateClone);
-  getRandomLocationsListFragment.appendChild(templateClone);
+  randomLocationsListFragment.appendChild(templateClone);
 }
+console.log(randomLocationsListFragment);
 // console.log(getRandomLocationsFragment);
-mapCanvas.appendChild(getRandomLocationsListFragment.children[0]);
+mapCanvas.appendChild(randomLocationsListFragment.children[0]);
 // const templateContent = template.querySelector('.popup');
 // const mapCanvas = document.querySelector('.map__canvas');
 
