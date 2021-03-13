@@ -5,7 +5,7 @@ import {
   getRandomArray
 } from './util.js';
 
-const TITLE = ['Информация о поездке', 'Описание предложения', 'Информация о месте проживания'];
+const TITLE = ['Инфиормаця о поездке', 'Описание предложения', 'Информация о месте проживания'];
 const ACCOMODATION_TYPE = ['palace', 'flat', 'house', 'bungalow'];
 const ACCOMODATION_TYPE_RU = ['Дворец', 'Квартира', 'Дом', 'Бунгало'];
 const TIME = ['12:00', '13:00', '14:00'];
