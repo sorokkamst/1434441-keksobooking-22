@@ -34,7 +34,7 @@ const generateOffer = () => {
     'offer': {
       title: getRandomArrayIndex(TITLE),
       address: [locationX, locationY].toString(),
-      price: getRandomInt(1000, 5000),
+      price: getRandomInt(0, 15000),
       type: getRandomArrayIndex(ACCOMODATION_TYPE),
       rooms: getRandomInt(1, 100),
       guests: getRandomInt(1, 100),
