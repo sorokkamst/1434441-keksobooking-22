@@ -26,4 +26,3 @@ document.querySelector('#timeout').onchange = function () {
   let timeOutIndex = document.querySelector('#timeout').selectedIndex;
   document.querySelector('#timein').selectedIndex = timeOutIndex;
 };
-
