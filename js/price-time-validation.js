@@ -1,20 +1,16 @@
-document.querySelector('#type').onchange = function () {
-  let accomodationType = document.querySelector('#type').value;
-  let accomodationPrice = document.querySelector('#price');
-  if (accomodationType === 'bungalow') {
-    accomodationPrice.min = 0;
-    accomodationPrice.placeholder = '0';
-  } else if (accomodationType === 'flat') {
-    accomodationPrice.min = 1000;
-    accomodationPrice.placeholder = '1000';
-  } else if (accomodationType === 'house') {
-    accomodationPrice.min = 5000;
-    accomodationPrice.placeholder = '5000';
-  } else if (accomodationType === 'palace') {
-    accomodationPrice.placeholder = '10000';
-    accomodationPrice.min = 10000;
-  }
+const priceForEachAccomodationType = {
+  'bungalow': 0,
+  'flat': 1000,
+  'house': 5000,
+  'palace': 10000,
 };
+
+document.querySelector('#type').addEventListener('change', () => {
+  const accomodationType = document.querySelector('#type').value;
+  const accomodationPrice = document.querySelector('#price');
+  accomodationPrice.min = priceForEachAccomodationType[accomodationType];
+  accomodationPrice.placeholder = priceForEachAccomodationType[accomodationType];
+});
 
 
 document.querySelector('#timein').onchange = function () {
