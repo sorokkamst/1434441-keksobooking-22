@@ -15,7 +15,7 @@ const getRandomInt = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-getRandomInt(1,2);
+getRandomInt(1, 2);
 
 const getRandomFloatingPointNumber = function (min, max, floatingPoint) {
 
@@ -26,6 +26,40 @@ const getRandomFloatingPointNumber = function (min, max, floatingPoint) {
   return +(Math.random() * (max - min) + min).toFixed(floatingPoint);
 }
 
-getRandomFloatingPointNumber(1,2,1);
+getRandomFloatingPointNumber(1, 2, 1);
 
-export {getRandomInt, getRandomFloatingPointNumber};
+const getRandomArrayIndex = (arr) => {
+  return arr[getRandomInt(0, arr.length - 1)]
+};
+
+const getRandomArray = (arr) => {
+  shuffle(arr);
+  const slicedArray = arr.slice(0, getRandomInt(1, arr.length - 1));
+  return slicedArray;
+};
+
+function shuffle(array) {
+  array.sort(() => Math.random() - 0.5)
+}
+
+const getSimilarArrayIndex = (firstArray, secondArray, value) => {
+
+  let secondArrayValue = '';
+
+  for (let i = 0; i < firstArray.length; i++) {
+    if (value === firstArray[i]) {
+      secondArrayValue = secondArray[i];
+    }
+  }
+
+  return secondArrayValue;
+};
+
+export {
+  getRandomInt,
+  getRandomFloatingPointNumber,
+  getRandomArrayIndex,
+  getRandomArray,
+  getSimilarArrayIndex
+};
+
