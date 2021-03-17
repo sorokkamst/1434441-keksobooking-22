@@ -79,14 +79,9 @@ points.forEach(({
     icon,
   });
 
-  marker.addTo(map);
+  marker
+  .addTo(map)
 });
-
-
-
-
-
-
 
 // Проверка на зарузку карты
 if (!map._loaded) {
