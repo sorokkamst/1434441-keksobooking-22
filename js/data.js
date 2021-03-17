@@ -45,8 +45,8 @@ const generateOffer = () => {
       photos: getRandomArray(PHOTOS),
     },
     'location': {
-      x: locationX,
-      y: locationY,
+      lat: locationX,
+      lng: locationY,
     },
   };
 };

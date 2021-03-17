@@ -5,10 +5,12 @@ import {
 } from './data.js';
 
 import {
-  getSimilarArrayIndex
+  getSimilarArrayIndex,
+  valueSrcCheck,
+  valueTextCheck,
+  arrayCheck
 } from './util.js';
 
-const mapCanvas = document.querySelector('.map__canvas');
 const template = document.querySelector('#card')
   .content
   .querySelector('.popup');
@@ -24,25 +26,28 @@ const getOfferValues = (data) => {
   const templatePhotoCloneLength = data.offer.photos.length;
   const templateFeaturesLength = data.offer.features.length;
 
-  templateClone.querySelector('.popup__avatar').src = data.author.avatar;
-  templateClone.querySelector('.popup__title').textContent = data.offer.title;
-  templateClone.querySelector('.popup__text--address').textContent = data.offer.address;
-  templateClone.querySelector('.popup__text--price').textContent = data.offer.price + ' ₽/ночь';
-  templateClone.querySelector('.popup__type').textContent = getSimilarArrayIndex(ACCOMODATION_TYPE, ACCOMODATION_TYPE_RU, data.offer.type);
-  templateClone.querySelector('.popup__text--capacity').textContent = data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей';
-  templateClone.querySelector('.popup__text--time').textContent = 'Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout;
-  templateClone.querySelector('.popup__description').textContent = data.offer.description;
+  valueSrcCheck(templateClone.querySelector('.popup__avatar'), data.author.avatar);
+  valueTextCheck(templateClone.querySelector('.popup__title'), data.offer.title);
+  valueTextCheck(templateClone.querySelector('.popup__text--address'), data.offer.address);
+  valueTextCheck(templateClone.querySelector('.popup__text--price'), data.offer.price + ' ₽/ночь');
+  valueTextCheck(templateClone.querySelector('.popup__type'), getSimilarArrayIndex(ACCOMODATION_TYPE, ACCOMODATION_TYPE_RU, data.offer.type));
+  valueTextCheck(templateClone.querySelector('.popup__text--capacity'), data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей');
+  valueTextCheck(templateClone.querySelector('.popup__text--time'), data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей');
+  valueTextCheck(templateClone.querySelector('.popup__description'), data.offer.description);
+  arrayCheck(templateClone.querySelector('.popup__features'), templateFeaturesLength);
+  arrayCheck(templateClone.querySelector('.popup__photos'), templatePhotoCloneLength);
+
 
   const getOfferFeatures = () => {
-    for (let k = 0; k < templateFeaturesLength; k++) {
-      const feature = data.offer.features[k];
+    for (let i = 0; i < templateFeaturesLength; i++) {
+      const feature = data.offer.features[i];
       templateClone.querySelector('.popup__feature--' + feature).classList.remove('hidden');
     }
   }
 
   const getOfferPhotos = () => {
-    for (let j = 0; j < templatePhotoCloneLength; j++) {
-      templatePhotoClone.src = data.offer.photos[j];
+    for (let i = 0; i < templatePhotoCloneLength; i++) {
+      templatePhotoClone.src = data.offer.photos[i];
       templatePhotos.appendChild(templatePhotoClone);
     }
     templatePhotos.removeChild(templatePhotos.children[0]);
@@ -55,4 +60,4 @@ const getOfferValues = (data) => {
 }
 
 locationsListFragment.append(getOfferValues(locationsList[0]));
-mapCanvas.append(locationsListFragment);
+console.log(locationsListFragment);

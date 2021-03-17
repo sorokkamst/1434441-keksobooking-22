@@ -30,13 +30,13 @@ getRandomFloatingPointNumber(1, 2, 1);
 
 const getRandomArrayIndex = (arr) => {
   return arr[getRandomInt(0, arr.length - 1)]
-};
+}
 
 const getRandomArray = (arr) => {
   shuffle(arr);
   const slicedArray = arr.slice(0, getRandomInt(1, arr.length - 1));
   return slicedArray;
-};
+}
 
 function shuffle(array) {
   array.sort(() => Math.random() - 0.5)
@@ -53,13 +53,47 @@ const getSimilarArrayIndex = (firstArray, secondArray, value) => {
   }
 
   return secondArrayValue;
-};
+}
+
+const integerNumberCheck = (number) => {
+  if (number.isInteger) {
+    return number;
+  } else {
+    return number.toFixed(5);
+  }
+}
+
+const valueSrcCheck = (element, value) => {
+  if (value === null) {
+    return element.classList.add('hidden');
+  } else {
+    return element.src = value;
+  }
+}
+
+const valueTextCheck = (element, value) => {
+  if (value === null) {
+    return element.classList.add('hidden');
+  } else {
+    return element.textContent = value;
+  }
+}
+
+const arrayCheck = (element, arrayLength) => {
+  if (arrayLength === 0) {
+    return element.classList.add('hidden');
+  }
+}
 
 export {
   getRandomInt,
   getRandomFloatingPointNumber,
   getRandomArrayIndex,
   getRandomArray,
-  getSimilarArrayIndex
+  getSimilarArrayIndex,
+  integerNumberCheck,
+  valueSrcCheck,
+  valueTextCheck,
+  arrayCheck
 };
 
