@@ -80,7 +80,7 @@ points.forEach(({
   });
 
   marker
-  .addTo(map)
+    .addTo(map)
 });
 
 // Проверка на зарузку карты

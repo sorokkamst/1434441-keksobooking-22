@@ -15,8 +15,6 @@ const getRandomInt = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-getRandomInt(1, 2);
-
 const getRandomFloatingPointNumber = function (min, max, floatingPoint) {
 
   if (!isValid(min, max)) {
@@ -25,8 +23,6 @@ const getRandomFloatingPointNumber = function (min, max, floatingPoint) {
 
   return +(Math.random() * (max - min) + min).toFixed(floatingPoint);
 }
-
-getRandomFloatingPointNumber(1, 2, 1);
 
 const getRandomArrayIndex = (arr) => {
   return arr[getRandomInt(0, arr.length - 1)]
@@ -42,17 +38,8 @@ function shuffle(array) {
   array.sort(() => Math.random() - 0.5)
 }
 
-const getSimilarArrayIndex = (firstArray, secondArray, value) => {
-
-  let secondArrayValue = '';
-
-  for (let i = 0; i < firstArray.length; i++) {
-    if (value === firstArray[i]) {
-      secondArrayValue = secondArray[i];
-    }
-  }
-
-  return secondArrayValue;
+const getKeyValue = (object, key) => {
+  return object[key];
 }
 
 const integerNumberCheck = (number) => {
@@ -65,23 +52,23 @@ const integerNumberCheck = (number) => {
 
 const valueSrcCheck = (element, value) => {
   if (value === null) {
-    return element.classList.add('hidden');
+    element.classList.add('hidden');
   } else {
-    return element.src = value;
+    element.src = value;
   }
 }
 
 const valueTextCheck = (element, value) => {
   if (value === null) {
-    return element.classList.add('hidden');
+    element.classList.add('hidden');
   } else {
-    return element.textContent = value;
+    element.textContent = value;
   }
 }
 
 const arrayCheck = (element, arrayLength) => {
   if (arrayLength === 0) {
-    return element.classList.add('hidden');
+    element.classList.add('hidden');
   }
 }
 
@@ -90,10 +77,9 @@ export {
   getRandomFloatingPointNumber,
   getRandomArrayIndex,
   getRandomArray,
-  getSimilarArrayIndex,
   integerNumberCheck,
   valueSrcCheck,
   valueTextCheck,
-  arrayCheck
+  arrayCheck,
+  getKeyValue
 };
-

@@ -1,11 +1,9 @@
 import {
-  getRandomLocations,
-  ACCOMODATION_TYPE,
-  ACCOMODATION_TYPE_RU
+  getRandomLocations
 } from './data.js';
 
 import {
-  getSimilarArrayIndex,
+  getKeyValue,
   valueSrcCheck,
   valueTextCheck,
   arrayCheck
@@ -14,6 +12,13 @@ import {
 const template = document.querySelector('#card')
   .content
   .querySelector('.popup');
+
+const ACCOMODATION_TYPE_RU = {
+  'bungalow': 'Бунгало',
+  'flat': 'Квартира',
+  'house': 'Дом',
+  'palace': 'Дворец',
+};
 
 const locationsList = getRandomLocations;
 const locationsListFragment = document.createDocumentFragment();
@@ -29,14 +34,13 @@ const getOfferValues = (data) => {
   valueSrcCheck(templateClone.querySelector('.popup__avatar'), data.author.avatar);
   valueTextCheck(templateClone.querySelector('.popup__title'), data.offer.title);
   valueTextCheck(templateClone.querySelector('.popup__text--address'), data.offer.address);
-  valueTextCheck(templateClone.querySelector('.popup__text--price'), data.offer.price + ' ₽/ночь');
-  valueTextCheck(templateClone.querySelector('.popup__type'), getSimilarArrayIndex(ACCOMODATION_TYPE, ACCOMODATION_TYPE_RU, data.offer.type));
-  valueTextCheck(templateClone.querySelector('.popup__text--capacity'), data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей');
-  valueTextCheck(templateClone.querySelector('.popup__text--time'), data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей');
+  valueTextCheck(templateClone.querySelector('.popup__text--price'), data.offer.price ? data.offer.price + ' ₽/ночь' : '');
+  valueTextCheck(templateClone.querySelector('.popup__type'), data.offer.type ? getKeyValue(ACCOMODATION_TYPE_RU, data.offer.type) : '');
+  valueTextCheck(templateClone.querySelector('.popup__text--capacity'), data.offer.rooms && data.offer.guests ? data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей' : '');
+  valueTextCheck(templateClone.querySelector('.popup__text--time'), data.offer.checkin && data.offer.checkout ? 'Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout : '');
   valueTextCheck(templateClone.querySelector('.popup__description'), data.offer.description);
   arrayCheck(templateClone.querySelector('.popup__features'), templateFeaturesLength);
   arrayCheck(templateClone.querySelector('.popup__photos'), templatePhotoCloneLength);
-
 
   const getOfferFeatures = () => {
     for (let i = 0; i < templateFeaturesLength; i++) {
