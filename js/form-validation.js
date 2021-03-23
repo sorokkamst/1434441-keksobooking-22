@@ -18,6 +18,7 @@ roomNumber.addEventListener('change', () => {
 });
 
 titleInput.addEventListener('input', () => {
+
   const valueLength = titleInput.value.length;
 
   if (valueLength < MIN_TITLE_LENGTH) {
