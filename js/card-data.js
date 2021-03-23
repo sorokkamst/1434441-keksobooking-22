@@ -1,8 +1,4 @@
 import {
-  getRandomLocations
-} from './data.js';
-
-import {
   getKeyValue,
   valueSrcCheck,
   valueTextCheck,
@@ -19,9 +15,6 @@ const ACCOMODATION_TYPE_RU = {
   'house': 'Дом',
   'palace': 'Дворец',
 };
-
-const locationsList = getRandomLocations;
-const locationsListFragment = document.createDocumentFragment();
 
 const getOfferValues = (data) => {
 
@@ -63,5 +56,4 @@ const getOfferValues = (data) => {
   return templateClone;
 }
 
-locationsListFragment.append(getOfferValues(locationsList[0]));
-console.log(locationsListFragment);
+export { getOfferValues };

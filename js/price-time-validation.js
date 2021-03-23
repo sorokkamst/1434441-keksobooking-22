@@ -24,4 +24,3 @@ timeOut.addEventListener('change', () => {
   const timeOutIndex = timeOut.selectedIndex;
   timeIn.selectedIndex = timeOutIndex;
 });
-

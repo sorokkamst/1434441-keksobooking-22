@@ -6,13 +6,15 @@ import {
   getRandomLocations
 } from './data.js';
 
+import {
+  getOfferValues
+} from './card-data.js';
 
 const mapCanvas = document.querySelector('.map__canvas');
 const tripInformationForm = document.querySelector('.ad-form');
 const tripFiltersForm = document.querySelector('.map__filters');
 const tripInformationFormAddress = tripInformationForm.querySelector('#address');
 
-const points = [];
 const pointsCheck = getRandomLocations;
 
 const map = L.map('map-canvas')
@@ -24,30 +26,25 @@ const map = L.map('map-canvas')
     lng: 139.69171,
   }, 12);
 
-// Добавил слои на карту
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   },
 ).addTo(map);
 
-// Создал кастомный кругляш-маркер
 const customMarker = L.icon({
   iconUrl: '../img/main-pin.svg',
   iconSize: [40, 60],
   iconAnchor: [20, 60],
 });
 
-// Добавил кастомный кругляш-маркер на карту, сделал его передвигающимся
 const mainPinMarker = L.marker({
-  lat: 35.689,
-  lng: 139.691,
+  lat: 35.68950,
+  lng: 139.69171,
 }, {
   draggable: true,
   icon: customMarker,
-});
-
-mainPinMarker.addTo(map);
+}).addTo(map);
 
 mainPinMarker.on('move', (evt) => {
   const currentLat = evt.target.getLatLng().lat;
@@ -55,17 +52,12 @@ mainPinMarker.on('move', (evt) => {
   tripInformationFormAddress.value = `${integerNumberCheck(currentLat)}, ${integerNumberCheck(currentLng)}`;
 });
 
-const getPointsLocations = (collection) => {
-  for (let i = 0; i < collection.length; i++) {
-    points.push(collection[i].location)
-  }
-}
-getPointsLocations(pointsCheck);
+pointsCheck.forEach((offer) => {
+  const {
+    lat,
+    lng,
+  } = offer.location;
 
-points.forEach(({
-  lat,
-  lng,
-}) => {
   const icon = L.icon({
     iconUrl: '../img/pin.svg',
     iconSize: [40, 60],
@@ -81,9 +73,9 @@ points.forEach(({
 
   marker
     .addTo(map)
+    .bindPopup(getOfferValues(offer));
 });
 
-// Проверка на зарузку карты
 if (!map._loaded) {
   mapCanvas.innerHTML = '';
 

@@ -29,7 +29,7 @@ const generateOffer = () => {
 
   return {
     'author': {
-      avatar: 'img/avatars/user' + getRandomAvatarNumber(1, 20) + '.png',
+      avatar: 'img/avatars/user' + getRandomAvatarNumber(1, 8) + '.png',
     },
     'offer': {
       title: getRandomArrayIndex(TITLE),
