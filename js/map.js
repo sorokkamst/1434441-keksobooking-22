@@ -1,3 +1,5 @@
+/* global L:readonly */
+
 import {
   integerNumberCheck
 } from './util.js';
@@ -10,20 +12,32 @@ import {
   getOfferValues
 } from './card-data.js';
 
-const mapCanvas = document.querySelector('.map__canvas');
-const tripInformationForm = document.querySelector('.ad-form');
-const tripFiltersForm = document.querySelector('.map__filters');
-const tripInformationFormAddress = tripInformationForm.querySelector('#address');
+import {
+  formDeactivation,
+  formActivation
+} from './form-state.js';
+
+const tripInformationFormAddress = document.querySelector('#address');
+
+const latValue = 35.68950;
+const lngValue = 139.69171;
+
+const iconWidth = 40;
+const iconHeight = 60;
+const iconAnchorWidth = iconWidth / 2;
 
 const pointsCheck = getRandomLocations;
 
+// formDeactivation();
+
 const map = L.map('map-canvas')
   .on('load', () => {
-    tripInformationFormAddress.value = '35.68950, 139.69171';
+    formActivation();
+    tripInformationFormAddress.value = `${latValue}, ${lngValue}`;
   })
   .setView({
-    lat: 35.68950,
-    lng: 139.69171,
+    lat: latValue,
+    lng: lngValue,
   }, 12);
 
 L.tileLayer(
@@ -34,13 +48,13 @@ L.tileLayer(
 
 const customMarker = L.icon({
   iconUrl: '../img/main-pin.svg',
-  iconSize: [40, 60],
-  iconAnchor: [20, 60],
+  iconSize: [iconWidth, iconHeight],
+  iconAnchor: [iconAnchorWidth, iconHeight],
 });
 
 const mainPinMarker = L.marker({
-  lat: 35.68950,
-  lng: 139.69171,
+  lat: latValue,
+  lng: lngValue,
 }, {
   draggable: true,
   icon: customMarker,
@@ -60,8 +74,8 @@ pointsCheck.forEach((offer) => {
 
   const icon = L.icon({
     iconUrl: '../img/pin.svg',
-    iconSize: [40, 60],
-    iconAnchor: [20, 60],
+    iconSize: [iconWidth, iconHeight],
+    iconAnchor: [iconAnchorWidth, iconHeight],
   });
 
   const marker = L.marker({
@@ -75,18 +89,3 @@ pointsCheck.forEach((offer) => {
     .addTo(map)
     .bindPopup(getOfferValues(offer));
 });
-
-if (!map._loaded) {
-  mapCanvas.innerHTML = '';
-
-  tripInformationForm.classList.add('ad-form--disabled');
-  tripFiltersForm.classList.add('map__filters--disabled');
-
-  for (let k = 0; k < tripInformationForm.children.length; k++) {
-    tripInformationForm.children[k].disabled = true;
-  }
-
-  for (let j = 0; j < tripFiltersForm.children.length; j++) {
-    tripFiltersForm.children[j].disabled = true;
-  }
-}

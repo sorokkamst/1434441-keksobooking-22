@@ -51,7 +51,7 @@ const integerNumberCheck = (number) => {
 }
 
 const valueSrcCheck = (element, value) => {
-  if (value === null) {
+  if (!value) {
     element.classList.add('hidden');
   } else {
     element.src = value;
@@ -59,7 +59,7 @@ const valueSrcCheck = (element, value) => {
 }
 
 const valueTextCheck = (element, value) => {
-  if (value === null) {
+  if (!value) {
     element.classList.add('hidden');
   } else {
     element.textContent = value;
