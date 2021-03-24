@@ -9,6 +9,27 @@ const priceForEachAccomodationType = {
   'palace': 10000,
 };
 
+const validatePrice = (field) => {
+  field.addEventListener('input', () => {
+    const type = document.querySelector('#type').value;
+    const price = document.querySelector('#price');
+
+    if (price.value < priceForEachAccomodationType[type]) {
+      price.setCustomValidity('Минимальная цена - ' + priceForEachAccomodationType[type]);
+    } else {
+      price.setCustomValidity('');
+    }
+    price.reportValidity();
+  })
+}
+
+const validateTime = (firstField, secondField) => {
+  firstField.addEventListener('change', () => {
+    const timeInIndex = firstField.selectedIndex;
+    secondField.selectedIndex = timeInIndex;
+  })
+}
+
 type.addEventListener('change', () => {
   const accomodationType = document.querySelector('#type').value;
   const accomodationPrice = document.querySelector('#price');
@@ -17,36 +38,9 @@ type.addEventListener('change', () => {
   accomodationPrice.placeholder = priceForEachAccomodationType[accomodationType];
 });
 
-type.addEventListener('input', () => {
-  const accomodationType = document.querySelector('#type').value;
-  const accomodationPrice = document.querySelector('#price');
+validatePrice(type);
+validatePrice(price);
 
-  if (accomodationPrice.value < priceForEachAccomodationType[accomodationType]) {
-    accomodationPrice.setCustomValidity('Минимальная цена - ' + priceForEachAccomodationType[accomodationType]);
-  } else {
-    accomodationPrice.setCustomValidity('');
-  }
-  accomodationPrice.reportValidity();
-});
+validateTime(timeIn, timeOut);
+validateTime(timeOut, timeIn);
 
-price.addEventListener('input', () => {
-  const accomodationType = document.querySelector('#type').value;
-  const accomodationPrice = document.querySelector('#price');
-
-  if (accomodationPrice.value < priceForEachAccomodationType[accomodationType]) {
-    accomodationPrice.setCustomValidity('Минимальная цена - ' + priceForEachAccomodationType[accomodationType]);
-  } else {
-    accomodationPrice.setCustomValidity('');
-  }
-  accomodationPrice.reportValidity();
-});
-
-timeIn.addEventListener('change', () => {
-  const timeInIndex = timeIn.selectedIndex;
-  timeOut.selectedIndex = timeInIndex;
-});
-
-timeOut.addEventListener('change', () => {
-  const timeOutIndex = timeOut.selectedIndex;
-  timeIn.selectedIndex = timeOutIndex;
-});

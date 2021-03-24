@@ -13,31 +13,29 @@ import {
 } from './card-data.js';
 
 import {
-  formDeactivation,
-  formActivation
+  deactivatForm,
+  activationForm
 } from './form-state.js';
 
+const LAT_VALUE = 35.68950;
+const LNG_VALUE = 139.69171;
+const ICON_WIDTH = 40;
+const ICON_HEIGHT = 60;
+const ICON_ANCHOR_WIDTH = ICON_WIDTH / 2;
+
 const tripInformationFormAddress = document.querySelector('#address');
-
-const latValue = 35.68950;
-const lngValue = 139.69171;
-
-const iconWidth = 40;
-const iconHeight = 60;
-const iconAnchorWidth = iconWidth / 2;
-
 const pointsCheck = getRandomLocations;
 
-// formDeactivation();
+deactivatForm();
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    formActivation();
-    tripInformationFormAddress.value = `${latValue}, ${lngValue}`;
+    activationForm();
+    tripInformationFormAddress.value = `${LAT_VALUE}, ${LNG_VALUE}`;
   })
   .setView({
-    lat: latValue,
-    lng: lngValue,
+    lat: LAT_VALUE,
+    lng: LNG_VALUE,
   }, 12);
 
 L.tileLayer(
@@ -48,13 +46,13 @@ L.tileLayer(
 
 const customMarker = L.icon({
   iconUrl: '../img/main-pin.svg',
-  iconSize: [iconWidth, iconHeight],
-  iconAnchor: [iconAnchorWidth, iconHeight],
+  iconSize: [ICON_WIDTH, ICON_HEIGHT],
+  iconAnchor: [ICON_ANCHOR_WIDTH, ICON_HEIGHT],
 });
 
 const mainPinMarker = L.marker({
-  lat: latValue,
-  lng: lngValue,
+  lat: LAT_VALUE,
+  lng: LNG_VALUE,
 }, {
   draggable: true,
   icon: customMarker,
@@ -74,8 +72,8 @@ pointsCheck.forEach((offer) => {
 
   const icon = L.icon({
     iconUrl: '../img/pin.svg',
-    iconSize: [iconWidth, iconHeight],
-    iconAnchor: [iconAnchorWidth, iconHeight],
+    iconSize: [ICON_WIDTH, ICON_HEIGHT],
+    iconAnchor: [ICON_ANCHOR_WIDTH, ICON_HEIGHT],
   });
 
   const marker = L.marker({

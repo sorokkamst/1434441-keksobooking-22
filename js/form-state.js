@@ -3,7 +3,7 @@ const tripFiltersForm = document.querySelector('.map__filters');
 const tripInformationFormChildren = tripInformationForm.querySelectorAll('fieldset');
 const tripFiltersFormChildren = tripFiltersForm.querySelectorAll('.map__filter');
 
-const formDeactivation = () => {
+const deactivatForm = () => {
   tripInformationForm.classList.add('ad-form--disabled');
   tripFiltersForm.classList.add('map__filters--disabled');
   tripInformationFormChildren.forEach((fieldset) => {
@@ -14,7 +14,7 @@ const formDeactivation = () => {
   });
 }
 
-const formActivation = () => {
+const activationForm = () => {
   tripInformationForm.classList.remove('ad-form--disabled');
   tripFiltersForm.classList.remove('map__filters--disabled');
   tripInformationFormChildren.forEach((fieldset) => {
@@ -26,6 +26,6 @@ const formActivation = () => {
 }
 
 export {
-  formDeactivation,
-  formActivation
+  deactivatForm,
+  activationForm
 };
