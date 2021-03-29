@@ -3,29 +3,46 @@ const tripFiltersForm = document.querySelector('.map__filters');
 const tripInformationFormChildren = tripInformationForm.querySelectorAll('fieldset');
 const tripFiltersFormChildren = tripFiltersForm.querySelectorAll('.map__filter');
 
+const manageStateTwoForms = (boolean) => {
+  tripInformationFormChildren.forEach((fieldset) => {
+    fieldset.disabled = boolean;
+  });
+  tripFiltersFormChildren.forEach((fieldset) => {
+    fieldset.disabled = boolean;
+  });
+}
+
+const manageStateMapFilter = (boolean) => {
+  tripFiltersFormChildren.forEach((fieldset) => {
+    fieldset.disabled = boolean;
+  });
+}
+
 const deactivatForm = () => {
   tripInformationForm.classList.add('ad-form--disabled');
   tripFiltersForm.classList.add('map__filters--disabled');
-  tripInformationFormChildren.forEach((fieldset) => {
-    fieldset.disabled = true;
-  });
-  tripFiltersFormChildren.forEach((fieldset) => {
-    fieldset.disabled = true;
-  });
+  manageStateTwoForms(true);
 }
 
 const activationForm = () => {
   tripInformationForm.classList.remove('ad-form--disabled');
   tripFiltersForm.classList.remove('map__filters--disabled');
-  tripInformationFormChildren.forEach((fieldset) => {
-    fieldset.disabled = false;
-  });
-  tripFiltersFormChildren.forEach((fieldset) => {
-    fieldset.disabled = false;
-  });
+  manageStateTwoForms(false);
+}
+
+const deactivateMapFilters = () => {
+  tripFiltersForm.classList.add('map__filters--disabled');
+  manageStateMapFilter(true);
+}
+
+const activateMapFilters = () => {
+  tripFiltersForm.classList.remove('map__filters--disabled');
+  manageStateMapFilter(false);
 }
 
 export {
   deactivatForm,
-  activationForm
+  activationForm,
+  deactivateMapFilters,
+  activateMapFilters
 };

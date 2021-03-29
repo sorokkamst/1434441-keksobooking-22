@@ -12,7 +12,7 @@
 </head>
 <body>
 
-  <main>
+  <main class="main">
     <div class="promo">
       <h1 class="promo__title visually-hidden">Keksobooking. Кексы по соседству</h1>
       <img src="img/keksobooking.svg" alt="Keksobooking. Кексы по соседству" width="215" height="45">
@@ -20,9 +20,11 @@
 
     <!-- Карта объявлений -->
     <section class="map">
-
+      <div class="map__error hidden">Ошибка загрузки данных</div>
       <!-- Блок для вставки карты -->
-      <div class="map__canvas" id="map-canvas"></div>
+      <div class="map__canvas" id="map-canvas">
+
+      </div>
 
       <!-- Фильтрация объявлений -->
       <div class="map__filters-container">
@@ -52,7 +54,7 @@
             <option value="1">Один гость</option>
             <option value="0">Не для гостей</option>
           </select>
-          <fieldset id="housing-features" class="map__features">
+          <fieldset id="housing-features" class="map__features map__filter">
             <input type="checkbox" name="features" value="wifi" id="filter-wifi" class="map__checkbox visually-hidden">
             <label class="map__feature map__feature--wifi" for="filter-wifi">Wi-Fi</label>
             <input type="checkbox" name="features" value="dishwasher" id="filter-dishwasher" class="map__checkbox visually-hidden">
@@ -106,7 +108,7 @@
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
-          <input id="price" name="price" type="number" placeholder="5000" min="1000" max="1000000" required>
+          <input id="price" name="price" type="number" placeholder="1000" min="1000" max="1000000" required>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--time">
           <label class="ad-form__label" for="timein">Время заезда и выезда</label>
@@ -218,18 +220,19 @@
 
   <!-- Сообщение об успешном создании объявления -->
   <template id="success">
-    <div class="success">
+    <div class="success sent-popup">
       <p class="success__message">Ваше объявление<br>успешно размещено!</p>
     </div>
   </template>
 
   <!-- Сообщение об ошибке создания объявления -->
   <template id="error">
-    <div class="error">
+    <div class="error sent-popup">
       <p class="error__message">Ошибка размещения объявления</p>
       <button type="button" class="error__button">Попробовать снова</button>
     </div>
   </template>
+
   <script src="js/main.js" type="module" defer></script>
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="

@@ -72,6 +72,10 @@ const arrayCheck = (element, arrayLength) => {
   }
 }
 
+const isEscEvent = (evt) => {
+  return evt.key === 'Escape' || evt.key === 'Esc';
+};
+
 export {
   getRandomInt,
   getRandomFloatingPointNumber,
@@ -81,5 +85,6 @@ export {
   valueSrcCheck,
   valueTextCheck,
   arrayCheck,
-  getKeyValue
+  getKeyValue,
+  isEscEvent
 };

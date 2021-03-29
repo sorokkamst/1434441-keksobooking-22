@@ -5,26 +5,36 @@ import {
 } from './util.js';
 
 import {
-  getRandomLocations
-} from './data.js';
-
-import {
   getOfferValues
 } from './card-data.js';
 
 import {
   deactivatForm,
-  activationForm
+  activationForm,
+  deactivateMapFilters,
+  activateMapFilters
 } from './form-state.js';
+
+import {
+  getData
+} from './fetch.js';
 
 const LAT_VALUE = 35.68950;
 const LNG_VALUE = 139.69171;
 const ICON_WIDTH = 40;
 const ICON_HEIGHT = 60;
 const ICON_ANCHOR_WIDTH = ICON_WIDTH / 2;
+const MAP_ZOOM = 10;
+const SIMILAR_OFFERS_COUNT = 10;
 
 const tripInformationFormAddress = document.querySelector('#address');
-const pointsCheck = getRandomLocations;
+const dataLoadErorr = document.querySelector('.map__error');
+
+// const getOfferRank = (offers) => {
+const accomodationType = document.querySelector('[name="housing-type"]');
+//   const result = offers.filter(offer => offer.offer.type === accomodationType);
+//   return result;
+// };
 
 deactivatForm();
 
@@ -36,7 +46,7 @@ const map = L.map('map-canvas')
   .setView({
     lat: LAT_VALUE,
     lng: LNG_VALUE,
-  }, 12);
+  }, MAP_ZOOM);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -64,26 +74,47 @@ mainPinMarker.on('move', (evt) => {
   tripInformationFormAddress.value = `${integerNumberCheck(currentLat)}, ${integerNumberCheck(currentLng)}`;
 });
 
-pointsCheck.forEach((offer) => {
-  const {
-    lat,
-    lng,
-  } = offer.location;
+const drawOffers = (offers) => {
 
-  const icon = L.icon({
-    iconUrl: '../img/pin.svg',
-    iconSize: [ICON_WIDTH, ICON_HEIGHT],
-    iconAnchor: [ICON_ANCHOR_WIDTH, ICON_HEIGHT],
-  });
+  offers.forEach((offer) => {
+    const {
+      lat,
+      lng,
+    } = offer.location;
 
-  const marker = L.marker({
-    lat,
-    lng,
-  }, {
-    icon,
-  });
+    const icon = L.icon({
+      iconUrl: '../img/pin.svg',
+      iconSize: [ICON_WIDTH, ICON_HEIGHT],
+      iconAnchor: [ICON_ANCHOR_WIDTH, ICON_HEIGHT],
+    });
 
-  marker
-    .addTo(map)
-    .bindPopup(getOfferValues(offer));
-});
+    const marker = L.marker({
+      lat,
+      lng,
+    }, {
+      icon,
+    });
+
+    marker
+      .addTo(map)
+      .bindPopup(getOfferValues(offer));
+  })
+  activateMapFilters();
+};
+
+const getDataError = () => {
+  dataLoadErorr.classList.remove('hidden');
+  deactivateMapFilters();
+}
+
+getData(
+  (offers) => drawOffers(offers.slice(0, SIMILAR_OFFERS_COUNT)),
+  () => getDataError(),
+);
+
+export {
+  LAT_VALUE,
+  LNG_VALUE,
+  mainPinMarker,
+  map
+};

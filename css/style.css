@@ -926,7 +926,7 @@ fieldset {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 2000;
 
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -1025,4 +1025,12 @@ fieldset {
 
 .hidden {
   display: none;
+}
+
+.map__error {
+  font-size: 20px;
+  width: 100%;
+  background-color:  #ff6547;
+  text-align: center;
+  color: #ffffff;
 }

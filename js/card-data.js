@@ -9,6 +9,12 @@ const template = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
+const getOfferRank = (offers) => {
+  const accomodationType = document.querySelector('[name="housing-type"]');
+  const result = offers.filter(offer => offer.offer.type === accomodationType);
+  return result;
+};
+
 const ACCOMODATION_TYPE_RU = {
   'bungalow': 'Бунгало',
   'flat': 'Квартира',
