@@ -4,6 +4,7 @@ const getData = (onSuccess, onError) => {
       if (response.ok) {
         return response.json();
       }
+      throw new Error();
     })
     .then((json) => {
       onSuccess(json);
@@ -15,22 +16,23 @@ const getData = (onSuccess, onError) => {
 
 const sendData = (onSuccess, onFail, body) => {
   fetch(
-    'https://22.javascript.pages.academy/keksobooking',
-    {
+    'https://22.javascript.pages.academy/keksobooking', {
       method: 'POST',
       body,
     },
   )
     .then((response) => {
       if (response.ok) {
-        onSuccess();
-      } else {
-        onFail('Не удалось отправить форму. Попробуйте ещё раз');
+        return onSuccess();
       }
+      throw new Error();
     })
     .catch(() => {
-      onFail('Не удалось отправить форму. Попробуйте ещё раз');
+      onFail();
     });
 };
 
-export { getData, sendData };
+export {
+  getData,
+  sendData
+};

@@ -9,12 +9,6 @@ const template = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
-const getOfferRank = (offers) => {
-  const accomodationType = document.querySelector('[name="housing-type"]');
-  const result = offers.filter(offer => offer.offer.type === accomodationType);
-  return result;
-};
-
 const ACCOMODATION_TYPE_RU = {
   'bungalow': 'Бунгало',
   'flat': 'Квартира',
@@ -25,7 +19,6 @@ const ACCOMODATION_TYPE_RU = {
 const getOfferValues = (data) => {
 
   const templateClone = template.cloneNode(true);
-  const templatePhotoClone = templateClone.querySelector('.popup__photo').cloneNode();
   const templatePhotos = templateClone.querySelector('.popup__photos');
   const templatePhotoCloneLength = data.offer.photos.length;
   const templateFeaturesLength = data.offer.features.length;
@@ -39,7 +32,7 @@ const getOfferValues = (data) => {
   valueTextCheck(templateClone.querySelector('.popup__text--time'), data.offer.checkin && data.offer.checkout ? 'Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout : '');
   valueTextCheck(templateClone.querySelector('.popup__description'), data.offer.description);
   arrayCheck(templateClone.querySelector('.popup__features'), templateFeaturesLength);
-  arrayCheck(templateClone.querySelector('.popup__photos'), templatePhotoCloneLength);
+  arrayCheck(templatePhotos, templatePhotoCloneLength);
 
   const getOfferFeatures = () => {
     for (let i = 0; i < templateFeaturesLength; i++) {
@@ -50,6 +43,7 @@ const getOfferValues = (data) => {
 
   const getOfferPhotos = () => {
     for (let i = 0; i < templatePhotoCloneLength; i++) {
+      const templatePhotoClone = templateClone.querySelector('.popup__photo').cloneNode();
       templatePhotoClone.src = data.offer.photos[i];
       templatePhotos.appendChild(templatePhotoClone);
     }

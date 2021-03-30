@@ -23,10 +23,7 @@ validateNumberOfGuests(capacity);
 
 titleInput.addEventListener('input', () => {
   const valueLength = titleInput.value.trim().length;
-  if (valueLength < MIN_TITLE_LENGTH) {
-    titleInput.setCustomValidity('Ещё ' + (MIN_TITLE_LENGTH - valueLength) + ' симв.');
-  } else {
-    titleInput.setCustomValidity('');
-  }
+  titleInput.setCustomValidity(valueLength < MIN_TITLE_LENGTH ? 'Ещё ' + (MIN_TITLE_LENGTH - valueLength) + ' симв.' : '');
   titleInput.reportValidity();
 });
+

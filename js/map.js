@@ -30,11 +30,18 @@ const SIMILAR_OFFERS_COUNT = 10;
 const tripInformationFormAddress = document.querySelector('#address');
 const dataLoadErorr = document.querySelector('.map__error');
 
-// const getOfferRank = (offers) => {
 const accomodationType = document.querySelector('[name="housing-type"]');
-//   const result = offers.filter(offer => offer.offer.type === accomodationType);
-//   return result;
-// };
+
+// const filterAccomodation = (offers) => {
+//   return offers.filter(offer => offer.offer.type === accomodationType.value);
+// }
+
+const setAccomodationType = (cb) => {
+  accomodationType.addEventListener('change', (evt) => {
+    const type = accomodationType.value;
+    cb();
+  });
+};
 
 deactivatForm();
 
@@ -69,36 +76,40 @@ const mainPinMarker = L.marker({
 }).addTo(map);
 
 mainPinMarker.on('move', (evt) => {
-  const currentLat = evt.target.getLatLng().lat;
-  const currentLng = evt.target.getLatLng().lng;
-  tripInformationFormAddress.value = `${integerNumberCheck(currentLat)}, ${integerNumberCheck(currentLng)}`;
+  const {
+    lat,
+    lng
+  } = evt.target.getLatLng();
+  tripInformationFormAddress.value = `${integerNumberCheck(lat)}, ${integerNumberCheck(lng)}`;
 });
 
 const drawOffers = (offers) => {
 
-  offers.forEach((offer) => {
-    const {
-      lat,
-      lng,
-    } = offer.location;
+  offers
+    .filter(offer => offer.offer.type === accomodationType.value)
+    .forEach((offer) => {
+      const {
+        lat,
+        lng,
+      } = offer.location;
 
-    const icon = L.icon({
-      iconUrl: '../img/pin.svg',
-      iconSize: [ICON_WIDTH, ICON_HEIGHT],
-      iconAnchor: [ICON_ANCHOR_WIDTH, ICON_HEIGHT],
-    });
+      const icon = L.icon({
+        iconUrl: '../img/pin.svg',
+        iconSize: [ICON_WIDTH, ICON_HEIGHT],
+        iconAnchor: [ICON_ANCHOR_WIDTH, ICON_HEIGHT],
+      });
 
-    const marker = L.marker({
-      lat,
-      lng,
-    }, {
-      icon,
-    });
+      const marker = L.marker({
+        lat,
+        lng,
+      }, {
+        icon,
+      });
 
-    marker
-      .addTo(map)
-      .bindPopup(getOfferValues(offer));
-  })
+      marker
+        .addTo(map)
+        .bindPopup(getOfferValues(offer));
+    })
   activateMapFilters();
 };
 

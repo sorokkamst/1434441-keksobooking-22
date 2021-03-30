@@ -3,19 +3,17 @@ const tripFiltersForm = document.querySelector('.map__filters');
 const tripInformationFormChildren = tripInformationForm.querySelectorAll('fieldset');
 const tripFiltersFormChildren = tripFiltersForm.querySelectorAll('.map__filter');
 
-const manageStateTwoForms = (boolean) => {
-  tripInformationFormChildren.forEach((fieldset) => {
-    fieldset.disabled = boolean;
-  });
+const manageStateMapFilter = (isDisabled) => {
   tripFiltersFormChildren.forEach((fieldset) => {
-    fieldset.disabled = boolean;
+    fieldset.disabled = isDisabled;
   });
 }
 
-const manageStateMapFilter = (boolean) => {
-  tripFiltersFormChildren.forEach((fieldset) => {
-    fieldset.disabled = boolean;
+const manageStateTwoForms = (isDisabled) => {
+  tripInformationFormChildren.forEach((fieldset) => {
+    fieldset.disabled = isDisabled;
   });
+  manageStateMapFilter(isDisabled);
 }
 
 const deactivatForm = () => {
