@@ -24,6 +24,8 @@ const errorTemplateCloseButton = errorTemplate.querySelector('.error__button');
 
 const closePopup = () => {
   document.querySelector('.sent-popup').remove();
+  document.removeEventListener('keydown', onPopupEscKeydown);
+  document.removeEventListener('click', closePopup);
 };
 
 const onPopupEscKeydown = (evt) => {
@@ -33,21 +35,8 @@ const onPopupEscKeydown = (evt) => {
   }
 };
 
-const removeElement = (listener, element) => {
-  listener.addEventListener('click', () => {
-    main.removeChild(element);
-  })
-};
-
-const showSentState = (template) => {
-  template.cloneNode(true);
-  main.appendChild(template);
-  document.addEventListener('keydown', onPopupEscKeydown);
-  removeElement(document, template);
-};
-
 const errorPopupClose = () => {
-  removeElement(errorTemplateCloseButton, errorTemplate);
+  errorTemplateCloseButton.addEventListener('click', closePopup);
 }
 
 addForm.addEventListener('submit', (evt) => {
@@ -65,10 +54,18 @@ addForm.addEventListener('submit', (evt) => {
 });
 
 const messageSuccess = () => {
-  showSentState(successTemplate);
+  successTemplate.cloneNode(true);
+  main.appendChild(successTemplate);
+  document.addEventListener('keydown', onPopupEscKeydown);
+  document.addEventListener('click', closePopup);
 };
 
 const messageError = () => {
-  showSentState(errorTemplate);
+  errorTemplate.cloneNode(true);
+  main.appendChild(errorTemplate);
+  document.addEventListener('keydown', onPopupEscKeydown);
+  document.addEventListener('click', closePopup);
   errorPopupClose();
 };
+
+
