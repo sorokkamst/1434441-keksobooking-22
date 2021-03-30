@@ -66,7 +66,7 @@ const isConditionerAvailable = (offer) => {
 
 const filterOffers = (offers) => {
   return offers.filter(({
-    offer
+    offer,
   }) => isTypeAvailable(offer) && isPriceAvailable(offer) && isRoomsAvailable(offer) && isGuestsAvailable(offer) && isWifiAvailable(offer) && isDishwasherAvailable(offer) && isParkingAvailable(offer) && isWasherAvailable(offer) && isElevatorAvailable(offer) && isConditionerAvailable(offer));
 }
 

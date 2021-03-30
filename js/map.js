@@ -1,4 +1,5 @@
 /* global L:readonly */
+/* global _:readonly */
 import {
   integerNumberCheck
 } from './util.js';
