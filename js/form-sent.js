@@ -37,7 +37,7 @@ const removeElement = (listener, element) => {
   listener.addEventListener('click', () => {
     main.removeChild(element);
   })
-}
+};
 
 const showSentState = (template) => {
   template.cloneNode(true);

@@ -1,5 +1,4 @@
 /* global L:readonly */
-
 import {
   integerNumberCheck
 } from './util.js';
@@ -19,6 +18,11 @@ import {
   getData
 } from './fetch.js';
 
+import {
+  filterOffers,
+  formPrint
+} from './map-filter.js';
+
 const LAT_VALUE = 35.68950;
 const LNG_VALUE = 139.69171;
 const ICON_WIDTH = 40;
@@ -26,22 +30,10 @@ const ICON_HEIGHT = 60;
 const ICON_ANCHOR_WIDTH = ICON_WIDTH / 2;
 const MAP_ZOOM = 10;
 const SIMILAR_OFFERS_COUNT = 10;
+const RERENDER_DELAY = 500;
 
 const tripInformationFormAddress = document.querySelector('#address');
 const dataLoadErorr = document.querySelector('.map__error');
-
-const accomodationType = document.querySelector('[name="housing-type"]');
-
-// const filterAccomodation = (offers) => {
-//   return offers.filter(offer => offer.offer.type === accomodationType.value);
-// }
-
-const setAccomodationType = (cb) => {
-  accomodationType.addEventListener('change', (evt) => {
-    const type = accomodationType.value;
-    cb();
-  });
-};
 
 deactivatForm();
 
@@ -78,38 +70,38 @@ const mainPinMarker = L.marker({
 mainPinMarker.on('move', (evt) => {
   const {
     lat,
-    lng
+    lng,
   } = evt.target.getLatLng();
   tripInformationFormAddress.value = `${integerNumberCheck(lat)}, ${integerNumberCheck(lng)}`;
 });
 
+const markers = L.layerGroup().addTo(map);
+
 const drawOffers = (offers) => {
+  markers.clearLayers();
+  offers.forEach((offer) => {
+    const {
+      lat,
+      lng,
+    } = offer.location;
 
-  offers
-    .filter(offer => offer.offer.type === accomodationType.value)
-    .forEach((offer) => {
-      const {
-        lat,
-        lng,
-      } = offer.location;
+    const icon = L.icon({
+      iconUrl: '../img/pin.svg',
+      iconSize: [ICON_WIDTH, ICON_HEIGHT],
+      iconAnchor: [ICON_ANCHOR_WIDTH, ICON_HEIGHT],
+    });
 
-      const icon = L.icon({
-        iconUrl: '../img/pin.svg',
-        iconSize: [ICON_WIDTH, ICON_HEIGHT],
-        iconAnchor: [ICON_ANCHOR_WIDTH, ICON_HEIGHT],
-      });
+    const marker = L.marker({
+      lat,
+      lng,
+    }, {
+      icon,
+    });
 
-      const marker = L.marker({
-        lat,
-        lng,
-      }, {
-        icon,
-      });
-
-      marker
-        .addTo(map)
-        .bindPopup(getOfferValues(offer));
-    })
+    marker
+      .addTo(markers)
+      .bindPopup(getOfferValues(offer));
+  })
   activateMapFilters();
 };
 
@@ -118,10 +110,18 @@ const getDataError = () => {
   deactivateMapFilters();
 }
 
+const drawFiltersOffers = (offers) => {
+  drawOffers(filterOffers(offers).slice(0, SIMILAR_OFFERS_COUNT));
+}
+
 getData(
-  (offers) => drawOffers(offers.slice(0, SIMILAR_OFFERS_COUNT)),
+  (offers) => {
+    drawFiltersOffers(offers);
+    formPrint(_.debounce(() => drawFiltersOffers(offers), RERENDER_DELAY));
+  },
   () => getDataError(),
 );
+
 
 export {
   LAT_VALUE,
