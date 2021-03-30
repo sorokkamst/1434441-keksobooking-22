@@ -24,7 +24,7 @@ const isPriceAvailable = (offer) => {
     case 'low':
       return offer.price < MIN_PRICE;
     case 'middle':
-      return MIN_PRICE < offer.price < MAX_PRICE;
+      return (offer.price >= MIN_PRICE && offer.price <= MAX_PRICE);
     case 'high':
       return offer.price > MAX_PRICE;
     default:
